@@ -1523,6 +1523,10 @@ charenc@0.0.2:
   version "0.0.2"
   resolved "https://registry.npm.taobao.org/charenc/download/charenc-0.0.2.tgz#c0a1d2f3a7092e03774bfa83f14c0fc5790a8667"
 
+china-area-data@^5.0.1:
+  version "5.0.1"
+  resolved "https://registry.npm.taobao.org/china-area-data/download/china-area-data-5.0.1.tgz#7943b83a0619f033bb5893da80cb46e52e44be66"
+
 "chokidar@>=2.0.0 <4.0.0", chokidar@^3.4.1:
   version "3.4.3"
   resolved "https://registry.npm.taobao.org/chokidar/download/chokidar-3.4.3.tgz?cache=0&sync_timestamp=1602585366200&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fchokidar%2Fdownload%2Fchokidar-3.4.3.tgz#c1df38231448e45ca4ac588e6c79573ba6a57d5b"
