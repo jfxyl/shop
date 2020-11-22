@@ -231,4 +231,5 @@ return [
         'Debugbar' => Barryvdh\Debugbar\Facade::class,
     ],
 
+    'order_ttl' => 5,
 ];
