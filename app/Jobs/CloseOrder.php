@@ -33,7 +33,6 @@ class CloseOrder implements ShouldQueue
      */
     public function handle()
     {
-        sleep(20);
         if($this->order->paid_at){
             return;
         }

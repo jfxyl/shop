@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\OrderPaid;
 use App\Models\Order;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -57,6 +58,14 @@ class PaymentController extends Controller
             'payment_method' => 'alipay',
             'payment_no' => $data->trade_no
         ]);
+
+        $this->afterPaid($order);
+
         return app('alipay')->success();
+    }
+
+    public function afterPaid($order)
+    {
+        event(new OrderPaid($order));
     }
 }
