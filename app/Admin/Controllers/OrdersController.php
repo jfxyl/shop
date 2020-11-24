@@ -103,7 +103,13 @@ class OrdersController extends AdminController
             throw new InvalidRequestException('退款状态不正确');
         }
         if($request->input('agree')){
+            $extra = $order->extra ?:[];
+            unset($extra['refund_disagree_reason']);
+            $order->update([
+                'extra' => $extra,
+            ]);
 
+            $this->_refundOrder($order);
         }else{
             $extra = $order->extra ?:[];
             $extra['refund_disagree_reason'] = $request->input('reason');
@@ -113,5 +119,37 @@ class OrdersController extends AdminController
             ]);
         }
         return $order;
+    }
+
+    public function _refundOrder($order)
+    {
+        switch($order->payment_method){
+            case 'alipay':
+                $refundNo = Order::getAvailableRefundNo();
+                $result = app('alipay')->refund([
+//                    'out_trade_no' => $order->no, // 之前的订单流水号
+                    'refund_amount' => $order->total_amount, // 退款金额，单位元
+                    'out_request_no' => $refundNo, // 退款订单号
+                    'trade_no' => $order->payment_no, // 退款订单号
+                ]);
+                if($result->sub_code){
+                    $extra = $order->extra ?:[];
+                    $extra['refund_failed_code'] = $result->sub_code;
+                    $order->update([
+                        'extra' => $extra,
+                        'refund_status' => Order::REFUND_STATUS_FAILED,
+                        'refund_no' => $refundNo,
+                    ]);
+                }else{
+                    $order->update([
+                        'refund_no' => $refundNo,
+                        'refund_status' => Order::REFUND_STATUS_SUCCESS,
+                    ]);
+                }
+                break;
+            default:
+                throw new InvalidRequestException('未知的支付模式');
+                break;
+        }
     }
 }
