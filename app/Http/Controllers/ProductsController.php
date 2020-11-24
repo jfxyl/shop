@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Exceptions\InvalidRequestException;
+use App\Models\OrderItem;
 use App\Models\Product;
 use Illuminate\Http\Request;
 

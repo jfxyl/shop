@@ -4,10 +4,9 @@ namespace App\Http\Requests;
 
 use App\Models\ProductSku;
 use App\Models\UserAddress;
-use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
-class OrderRequest extends FormRequest
+class OrderRequest extends Request
 {
     /**
      * Get the validation rules that apply to the request.

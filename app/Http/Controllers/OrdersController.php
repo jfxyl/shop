@@ -92,4 +92,26 @@ class OrdersController extends Controller
 
         return redirect()->back();
     }
+
+    public function applyRefund(Order $order,Request $request)
+    {
+        $this->authorize('own',$order);
+
+        if(!$order->paid_at){
+            throw new InvalidRequestException('订单未支付');
+        }
+        if($order->refund_status != Order::REFUND_STATUS_PENDING){
+            throw new InvalidRequestException('退款状态不正确');
+        }
+
+        $extra = $order->extra ? : [];
+
+        $extra['refund_reason'] = $request->input('reason');
+
+        $order->update([
+            'refund_status' => Order::REFUND_STATUS_APPLIED,
+            'extra' => $extra
+        ]);
+        return $order;
+    }
 }
