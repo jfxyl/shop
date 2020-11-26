@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Exceptions\CouponCodeUnavailableException;
 use Encore\Admin\Traits\DefaultDatetimeFormat;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
@@ -63,7 +64,7 @@ class CouponCode extends Model
         return $description;
     }
 
-    public function checkAvailable($orderAmount = null)
+    public function checkAvailable(User $user,$orderAmount = null)
     {
         if (!$this->enabled) {
             throw new CouponCodeUnavailableException('优惠券不存在');
@@ -83,6 +84,19 @@ class CouponCode extends Model
 
         if (!is_null($orderAmount) && $orderAmount < $this->min_amount) {
             throw new CouponCodeUnavailableException('订单金额不满足该优惠券最低金额');
+        }
+
+        $used = Order::query()->where('user_id',$user->id)
+            ->where('coupon_code_id',$this->id)
+            ->where(function($query){
+                $query->where(function($query){
+                    $query->whereNull('paid_at')->where('closed',false);
+                })->orWhere(function($query){
+                    $query->whereNotNull('paid_at')->where('refund_status','!=',Order::REFUND_STATUS_SUCCESS);
+                });
+            })->exists();
+        if($used){
+            throw new CouponCodeUnavailableException('优惠券已使用');
         }
     }
 

@@ -211,6 +211,7 @@
                             swal('优惠码不存在', '', 'error');
                         } else if (error.response.status === 403) {
                             // 如果返回码是 403，说明有其他条件不满足
+                            console.log(1111111)
                             swal(error.response.data.msg, '', 'error');
                         } else {
                             // 其他错误
