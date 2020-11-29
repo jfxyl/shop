@@ -27,7 +27,7 @@ class ProductsController extends AdminController
     {
         $grid = new Grid(new Product);
 
-        $grid->model()->with(['category']);
+        $grid->model()->where('type',Product::TYPE_NORMAL)->with(['category']);
 
         $grid->id('ID')->sortable();
         $grid->title('商品名称');
@@ -65,6 +65,8 @@ class ProductsController extends AdminController
 
         // 创建一个输入框，第一个参数 title 是模型的字段名，第二个参数是该字段描述
         $form->text('title', '商品名称')->rules('required');
+
+        $form->hidden('type')->value(Product::TYPE_NORMAL);
 
         $form->select('category_id','商品分类')->options(function($id){
             $category = Category::find($id);
