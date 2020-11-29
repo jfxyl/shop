@@ -41,18 +41,18 @@ class Category extends Model
         return $this->hasMany(Product::class);
     }
 
-    public function getParentIdsAttribute()
+    public function getPathIdsAttribute()
     {
         return array_filter(explode('-',$this->path));
     }
 
     public function getAncestorsAttribute()
     {
-        return Category::query()->whereIn('id',$this->parend_ids)->orderBy('level')->get();
+        return Category::query()->whereIn('id',$this->path_ids)->orderBy('level')->get();
     }
 
     public function getFullNameAttribute()
     {
-        return $this->ancestors->pluck('name')->push($this->name)->explode(' - ');
+        return $this->ancestors->pluck('name')->push($this->name)->implode(' - ');
     }
 }
