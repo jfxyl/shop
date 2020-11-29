@@ -19,8 +19,11 @@ $factory->define(Product::class, function (Faker $faker) {
         "https://cdn.learnku.com/uploads/images/201806/01/5320/pa7DrV43Mw.jpg",
     ]);
 
+    $category = \App\Models\Category::query()->where('is_directory',false)->inRandomOrder()->first();
+
     return [
         'title'        => $faker->word,
+        'category_id'  => $category ? $category->id : null,
         'description'  => $faker->sentence,
         'image'        => $image,
         'on_sale'      => true,
