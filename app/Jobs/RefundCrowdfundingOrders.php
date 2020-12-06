@@ -3,6 +3,8 @@
 namespace App\Jobs;
 
 use App\Models\CrowdfundingProduct;
+use App\Models\Order;
+use App\Services\OrderService;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
@@ -35,6 +37,7 @@ class RefundCrowdfundingOrders implements ShouldQueue
             return;
         }
         $orderService = app(OrderService::class);
+        echo date('Y-m-d H:i:s');
         Order::query()
             ->where('type', Order::TYPE_CROWDFUNDING)
             ->whereNotNull('paid_at')

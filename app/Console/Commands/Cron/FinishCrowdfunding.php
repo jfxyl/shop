@@ -56,7 +56,7 @@ class FinishCrowdfunding extends Command
             });
     }
 
-    protected function crowdfundingFailed($crowdfunding,OrderService $orderService)
+    protected function crowdfundingFailed($crowdfunding)
     {
         $crowdfunding->update([
             'status' => CrowdfundingProduct::STATUS_FAIL
