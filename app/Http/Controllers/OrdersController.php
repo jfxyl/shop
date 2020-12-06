@@ -120,6 +120,9 @@ class OrdersController extends Controller
     {
         $this->authorize('own',$order);
 
+        if($order->type === Order::TYPE_CROWDFUNDING){
+            throw new InvalidRequestException('众筹订单不支持退款');
+        }
         if(!$order->paid_at){
             throw new InvalidRequestException('订单未支付');
         }

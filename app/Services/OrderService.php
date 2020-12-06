@@ -27,6 +27,7 @@ class OrderService
             $address->update(['last_used_at' => Carbon::now()]);
             // 创建一个订单
             $order   = new Order([
+                'type' => Order::TYPE_NORMAL,
                 'address'      => [ // 将地址信息放入订单中
                     'address'       => $address->full_address,
                     'zip'           => $address->zip,
@@ -92,6 +93,7 @@ class OrderService
             $address->update(['last_used_at',Carbon::now()]);
 
             $order = new Order([
+                'type' => Order::TYPE_CROWDFUNDING,
                 'address' => [
                     'address' => $address->full_address,
                     'zip' => $address->zip,
