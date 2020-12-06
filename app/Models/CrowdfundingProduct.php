@@ -18,7 +18,7 @@ class CrowdfundingProduct extends Model
 
     protected $fillable = ['total_amount','target_amount','user_count','status','end_at'];
 
-    protected $casts = ['end_at'];
+    protected $dates = ['end_at'];
 
     public $timestamps = false;
 
@@ -29,7 +29,7 @@ class CrowdfundingProduct extends Model
 
     public function getPercentAttribute()
     {
-        $value = $this->attributes['target_amount'] / $this->attributes['total_amount'];
+        $value = $this->attributes['total_amount'] / $this->attributes['target_amount'];
 
         return floatval(number_format($value * 100,2,'.',''));
     }
