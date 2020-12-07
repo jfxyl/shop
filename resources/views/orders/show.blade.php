@@ -108,6 +108,9 @@
                                 <div class="payment-buttons">
                                     <a class="btn btn-primary btn-sm" href="{{ route('payment.alipay', ['order' => $order->id]) }}">支付宝支付</a>
                                 </div>
+                                @if($order->total_amount >= config('app.min_installment_amount'))
+                                    <button class="btn btn-sm btn-danger" id='btn-installment'>分期付款</button>
+                                @endif
                             @endif
                             <!-- 支付按钮结束 -->
                             <!-- 如果订单的发货状态为已发货则展示确认收货按钮 -->
@@ -176,6 +179,22 @@
                         });
                     });
             });
+        });
+
+        // 分期付款按钮点击事件
+        $('#btn-installment').click(function () {
+            // 展示分期弹框
+            $('#installment-modal').modal();
+        });
+
+        // 选择分期期数按钮点击事件
+        $('.btn-select-installment').click(function () {
+            // 调用创建分期付款接口
+            axios.post('{{ route('payment.installment', ['order' => $order->id]) }}', { count: $(this).data('count') })
+                .then(function (response) {
+                    console.log(response.data);
+                    // todo 跳转到分期付款页面
+                })
         });
 
     });
