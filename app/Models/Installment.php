@@ -21,7 +21,7 @@ class Installment extends Model
     protected static function boot()
     {
         parent::boot();
-        static::create(function($model){
+        static::creating(function($model){
             if(!$model->no){
                 $model->no = static::findAvailableNo();
                 if(!$model->no){
