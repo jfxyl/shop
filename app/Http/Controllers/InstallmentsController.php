@@ -13,4 +13,17 @@ class InstallmentsController extends Controller
 
         return view('installments.index',['installments' => $installments]);
     }
+
+    public function show(Installment $installment)
+    {
+        $this->authorize('own', $installment);
+        
+        $items = $installment->items()->orderBy('sequence')->get();
+
+        return view('installments.show',[
+            'installment' => $installment,
+            'items' => $items,
+            'nextItem' => $items->where('paid_at',null)->first()
+        ]);
+    }
 }
