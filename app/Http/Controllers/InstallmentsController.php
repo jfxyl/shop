@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Events\OrderPaid;
 use App\Exceptions\InvalidRequestException;
 use App\Models\Installment;
+use App\Models\InstallmentItem;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
@@ -87,7 +88,7 @@ class InstallmentsController extends Controller
 
             if($item->sequence == 0){
                 $installment->update(['status'=>Installment::STATUS_REPAYING]);
-                $item->update([
+                $installment->order->update([
                     'paid_at' => Carbon::now(),
                     'payment_method' => 'installment',
                     'payment_no' => $no
