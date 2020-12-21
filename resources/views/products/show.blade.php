@@ -105,7 +105,17 @@
                         </ul>
                         <div class="tab-content">
                             <div role="tabpanel" class="tab-pane active" id="product-detail-tab">
-                                {!! $product->description !!}
+                                <div class="properties-list">
+                                    <div class="properties-list-title">产品参数：</div>
+                                    <ul class="properties-list-body">
+                                        @foreach($product->grouped_properties as $name => $values)
+                                            <li>{{ $name }}：{{ join(' ',$values) }}</li>
+                                        @endforeach
+                                    </ul>
+                                </div>
+                                <div>
+                                    {!! $product->description !!}
+                                </div>
                             </div>
                             <div role="tabpanel" class="tab-pane" id="product-reviews-tab">
                                 <!-- 评论列表开始 -->
