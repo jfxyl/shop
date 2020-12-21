@@ -23,6 +23,7 @@ $factory->define(Product::class, function (Faker $faker) {
 
     return [
         'title'        => $faker->word,
+        'long_title'   => $faker->sentence,
         'category_id'  => $category ? $category->id : null,
         'description'  => $faker->sentence,
         'image'        => $image,
