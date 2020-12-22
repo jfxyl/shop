@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Http\ViewComposers\CategoryTreeComposer;
+use Elasticsearch\ClientBuilder;
 use Illuminate\Support\ServiceProvider;
 use Monolog\Logger;
 use Yansongda\Pay\Pay;
@@ -39,6 +40,15 @@ class AppServiceProvider extends ServiceProvider
             }
             // 调用 Yansongda\Pay 来创建一个微信支付对象
             return Pay::wechat($config);
+        });
+
+        $this->app->singleton('es',function(){
+            $config = config('database.elasticsearch.hosts');
+            $builder = ClientBuilder::create()->setHosts($config);
+            if(app()->environment() === 'local'){
+                $builder->setLogger(app('log')->driver());
+            }
+            return $builder->build();
         });
     }
 
