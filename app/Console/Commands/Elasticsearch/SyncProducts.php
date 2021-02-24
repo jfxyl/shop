@@ -46,6 +46,7 @@ class SyncProducts extends Command
                 $req = ['body' => []];
                 foreach($products as $product){
                     $data = $product->toESArray();
+                    print_r($data);
                     $req['body'][] = [
                         'index' => [
                             '_index' => 'products',
