@@ -58,6 +58,31 @@ class ProductsController extends Controller
                 }
             });
         }
+
+        $propertyFilters = [];
+        if ($filterString = $request->input('filters')) {
+            $filterArray = explode('|', $filterString);
+            foreach ($filterArray as $filter) {
+                list($name, $value) = explode(':', $filter);
+                $propertyFilters[$name] = $value;
+                $es->filter(function(ProductEs $query)use($name, $value){
+                    $query->whereNested('properties',[
+                        'properties.name' => $name,
+                        'properties.value' => $value
+                    ]);
+                });
+            }
+        }
+
+        if ($search || isset($category)) {
+            $es->aggs('properties','nested',[
+                'path' => 'properties',
+            ],function(ProductEs $query){
+                $query->groupBy('properties.name',[],function(ProductEs $query){
+                    $query->groupBy('properties.value');
+                });
+            });
+        }
         $result = $es->get();
 
         $productIds = collect($result['list'])->pluck('id')->all();
@@ -67,6 +92,23 @@ class ProductsController extends Controller
         $pager = new LengthAwarePaginator($products,$result['total'],$perPage,$page,[
             'path' => route('products.index',false)
         ]);
+        $properties = [];
+        // 如果返回结果里有 aggregations 字段，说明做了分面搜索
+        if (isset($result['aggs'])) {
+            // 使用 collect 函数将返回值转为集合
+            $properties = collect($result['aggs']['properties']['properties.name_terms']['buckets'])
+                ->map(function ($bucket) {
+                    // 通过 map 方法取出我们需要的字段
+                    return [
+                        'key'    => $bucket['key'],
+                        'values' => collect($bucket['properties.value_terms']['buckets'])->pluck('key')->all(),
+                    ];
+                })
+                ->filter(function ($property) use ($propertyFilters) {
+                    // 过滤掉只剩下一个值 或者 已经在筛选条件里的属性
+                    return count($property['values']) > 1 && !isset($propertyFilters[$property['key']]) ;
+                });;
+        }
 
         return view('products.index', [
             'products' => $pager,
@@ -75,6 +117,8 @@ class ProductsController extends Controller
                 'order'  => $order,
             ],
             'category' => $category ?? null,
+            'properties' => $properties,
+            'propertyFilters' => $propertyFilters,
         ]);
     }
 
