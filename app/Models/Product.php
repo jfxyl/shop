@@ -81,10 +81,11 @@ class Product extends Model
         $arr['skus'] = $this->skus->map(function(ProductSku $sku){
             return Arr::only($sku->toArray(),['title', 'description', 'price']);
         });
-        $arr['properties'] = $this->properties->map(function(ProductProperty $property){
-            return Arr::only($property->toArray(),['name','value']);
+        $arr['properties'] = $this->properties->map(function (ProductProperty $property) {
+            return array_merge(Arr::only($property->toArray(), ['name', 'value']), [
+                'search_value' => $property->name.':'.$property->value,
+            ]);
         });
-
         return $arr;
     }
 }
