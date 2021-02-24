@@ -45,15 +45,15 @@ class ProductsController extends Controller
             $es->where(function(ProductEs $query)use($keywords){
                 foreach($keywords as $keyword){
                     $query->where(function(ProductEs $query)use($keyword){
-                        $query->whereMultiMatch(['title^3','long_title^2','category^2','description'],$keyword)
-                            ->orWhere(function(ProductEs $query)use($keyword){
-                                $query->whereNested('skus',function(ProductEs $query)use($keyword){
-                                    $query->whereMatch('skus.title',$keyword)->orWhereMatch('skus.description',$keyword);
-                                });
-                            })
-                            ->orWhere(function(ProductEs $query)use($keyword){
-                                $query->whereNested('properties',['skus.value'=>$keyword]);
-                            });
+                        $query->whereMultiMatch([
+                            'title^3',
+                            'long_title^2',
+                            'category^2', // 类目名称
+                            'description',
+                            'skus_title',
+                            'skus_description',
+                            'properties_value'
+                        ],$keyword);
                     });
                 }
             });
