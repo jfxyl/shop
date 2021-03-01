@@ -87,8 +87,8 @@ class ProductsController extends Controller
 
         $productIds = collect($result['list'])->pluck('id')->all();
         $products = Product::query()
-            ->whereIn('id',$productIds)
-            ->orderByRaw(sprintf("find_in_set(id,'%s')",join(',', $productIds)))->get();
+            ->byIds($productIds)
+            ->get();
         $pager = new LengthAwarePaginator($products,$result['total'],$perPage,$page,[
             'path' => route('products.index',false)
         ]);
@@ -140,7 +140,24 @@ class ProductsController extends Controller
             ->limit(10) // 取出 10 条
             ->get();
 
-        return view('products.show',['product' => $product,'favored' => $favored,'reviews' => $reviews]);
+        $es = new ProductEs();
+        foreach($product->properties as $property){
+            $es->orFilter(function(ProductEs $query)use($property){
+                $query->whereNested('properties',['properties.search_value'=>$property->name.':'.$property->value]);
+            });
+        }
+        $similarProducts = $es->minimumShouldMatch(intval(ceil(count($product->properties) / 2)))
+            ->whereNot('id',$product->id)
+            ->size(4)
+            ->get();
+
+        $similarProductIds = collect($similarProducts['list'])->pluck('_id')->all();
+        // 根据 Elasticsearch 搜索出来的商品 ID 从数据库中读取商品数据
+        $similarProducts   = Product::query()
+            ->byIds($similarProductIds)
+            ->get();
+
+        return view('products.show',['product' => $product,'favored' => $favored,'reviews' => $reviews,'similar' => $similarProducts]);
     }
 
     public function favor(Product $product,Request $request)
