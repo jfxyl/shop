@@ -17,6 +17,7 @@
         "jfxy/elasticsearch": "dev-main",
         "jxlwqq/quill": "^1.0",
         "laravel/framework": "^7.29",
+        "laravel/horizon": "^4.3",
         "laravel/tinker": "^2.5",
         "laravel/ui": "^2.0",
         "moontoast/math": "^1.2",
