@@ -12,10 +12,11 @@ use App\Jobs\CloseOrder;
 use Carbon\Carbon;
 use App\Models\CouponCode;
 use App\Exceptions\CouponCodeUnavailableException;
+use Illuminate\Support\Facades\Redis;
 
 class OrderService
 {
-    public function store(User $user, UserAddress $address, $remark, $items,CouponCode $coupon = null)
+    public function store(User $user, UserAddress $address, $remark, $items, CouponCode $coupon = null)
     {
         // 如果传入了优惠券，则先检查是否可用
         if ($coupon) {
@@ -27,15 +28,15 @@ class OrderService
             // 更新此地址的最后使用时间
             $address->update(['last_used_at' => Carbon::now()]);
             // 创建一个订单
-            $order   = new Order([
+            $order = new Order([
                 'type' => Order::TYPE_NORMAL,
-                'address'      => [ // 将地址信息放入订单中
-                    'address'       => $address->full_address,
-                    'zip'           => $address->zip,
-                    'contact_name'  => $address->contact_name,
+                'address' => [ // 将地址信息放入订单中
+                    'address' => $address->full_address,
+                    'zip' => $address->zip,
+                    'contact_name' => $address->contact_name,
                     'contact_phone' => $address->contact_phone,
                 ],
-                'remark'       => $remark,
+                'remark' => $remark,
                 'total_amount' => 0,
             ]);
             // 订单关联到当前用户
@@ -46,11 +47,11 @@ class OrderService
             $totalAmount = 0;
             // 遍历用户提交的 SKU
             foreach ($items as $data) {
-                $sku  = ProductSku::find($data['sku_id']);
+                $sku = ProductSku::find($data['sku_id']);
                 // 创建一个 OrderItem 并直接与当前订单关联
                 $item = $order->items()->make([
                     'amount' => $data['amount'],
-                    'price'  => $sku->price,
+                    'price' => $sku->price,
                 ]);
                 $item->product()->associate($sku->product_id);
                 $item->productSku()->associate($sku);
@@ -62,7 +63,7 @@ class OrderService
             }
             if ($coupon) {
                 // 总金额已经计算出来了，检查是否符合优惠券规则
-                $coupon->checkAvailable($user,$totalAmount);
+                $coupon->checkAvailable($user, $totalAmount);
                 // 把订单金额修改为优惠后的金额
                 $totalAmount = $coupon->getAdjustedPrice($totalAmount);
                 // 将订单与优惠券关联
@@ -88,10 +89,10 @@ class OrderService
         return $order;
     }
 
-    public function crowdfunding(User $user, UserAddress $address, ProductSku $sku,$amount)
+    public function crowdfunding(User $user, UserAddress $address, ProductSku $sku, $amount)
     {
-        $order = \DB::transaction(function()use($user,$address,$sku,$amount){
-            $address->update(['last_used_at',Carbon::now()]);
+        $order = \DB::transaction(function () use ($user, $address, $sku, $amount) {
+            $address->update(['last_used_at', Carbon::now()]);
 
             $order = new Order([
                 'type' => Order::TYPE_CROWDFUNDING,
@@ -115,7 +116,7 @@ class OrderService
             $orderItem->productSku()->associate($sku);
             $orderItem->save();
 
-            if($sku->decreaseStock($amount) <= 0){
+            if ($sku->decreaseStock($amount) <= 0) {
                 throw new InvalidRequestException('商品库存不足');
             }
             return $order;
@@ -123,7 +124,46 @@ class OrderService
 
         $crowdfundingTtl = $sku->product->crowdfunding->end_at->getTimeStamp() - time();
 
-        dispatch(new CloseOrder($order,min($crowdfundingTtl,config('app.order_ttl'))));
+        dispatch(new CloseOrder($order, min($crowdfundingTtl, config('app.order_ttl'))));
+
+        return $order;
+    }
+
+    public function seckill(User $user, UserAddress $address, ProductSku $sku)
+    {
+        $order = \DB::transaction(function()use( $user,  $address,  $sku){
+            $address->update(['last_used_at' => Carbon::now()]);
+            if($sku->decreaseStock(1) <= 0){
+                throw new InvalidRequestException('该商品库存不足');
+            }
+            $order = new Order([
+                'address' => [
+                    'address' => $address->full_address,
+                    'zip' => $address->zip,
+                    'contact_name' => $address->contact_name,
+                    'contact_phone' => $address->contact_phone,
+                ],
+                'remark' => '',
+                'total_amount' => $sku->price,
+                'type' => Order::TYPE_SECKILL
+            ]);
+
+            $order->user()->associate($user);
+            $order->save();
+
+            $item = $order->items()->make([
+                'amount' => 1,
+                'price' => $sku->price
+            ]);
+            $item->product()->associate($sku->product_id);
+            $item->productSku()->associate($sku);
+            $item->save();
+
+            Redis::decr('seckill_sku_'.$sku->id);
+            return $order;
+        });
+
+        dispatch(new CloseOrder($order, config('app.seckill_order_ttl')));
 
         return $order;
     }
@@ -161,7 +201,7 @@ class OrderService
                 dispatch(new RefundInstallmentOrder($order));
                 break;
             default:
-                throw new InternalException('未知订单支付方式：'.$order->payment_method);
+                throw new InternalException('未知订单支付方式：' . $order->payment_method);
                 break;
         }
     }

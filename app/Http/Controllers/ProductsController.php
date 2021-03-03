@@ -7,6 +7,7 @@ use App\Extensions\ProductEs;
 use App\Models\Category;
 use App\Models\OrderItem;
 use App\Models\Product;
+use App\Models\ProductSku;
 use Illuminate\Http\Request;
 use App\Services\CategoryService;
 use Illuminate\Pagination\LengthAwarePaginator;
@@ -141,11 +142,14 @@ class ProductsController extends Controller
             ->get();
 
         $es = new ProductEs();
-        foreach($product->properties as $property){
-            $es->orFilter(function(ProductEs $query)use($property){
-                $query->whereNested('properties',['properties.search_value'=>$property->name.':'.$property->value]);
-            });
-        }
+        $es->where(function(ProductEs $query)use($product){
+            foreach($product->properties as $property){
+                $query->orWhere(function(ProductEs $query)use($property){
+                    $query->whereNested('properties',['properties.search_value'=>$property->name.':'.$property->value]);
+                });
+            }
+        });
+
         $similarProducts = $es->minimumShouldMatch(intval(ceil(count($product->properties) / 2)))
             ->whereNot('id',$product->id)
             ->size(4)

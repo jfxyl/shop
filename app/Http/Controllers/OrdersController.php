@@ -6,6 +6,7 @@ use App\Events\OrderReviewed;
 use App\Exceptions\InvalidRequestException;
 use App\Http\Requests\CrowdFundingOrderRequest;
 use App\Http\Requests\OrderRequest;
+use App\Http\Requests\SeckillOrderRequest;
 use App\Http\Requests\SendReviewRequest;
 use App\Models\CouponCode;
 use App\Models\Order;
@@ -43,6 +44,15 @@ class OrdersController extends Controller
         $amount = $request->input('amount');
 
         return $orderService->crowdfunding($user,$address,$sku,$amount);
+    }
+
+    public function seckill(SeckillOrderRequest $request, OrderService $orderService)
+    {
+        $user    = $request->user();
+        $address = UserAddress::find($request->input('address_id'));
+        $sku     = ProductSku::find($request->input('sku_id'));
+
+        return $orderService->seckill($user, $address, $sku);
     }
 
     public function index(Request $request)
