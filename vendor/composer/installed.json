@@ -1983,6 +1983,65 @@
             "install-path": "../hamcrest/hamcrest-php"
         },
         {
+            "name": "jfxy/elasticsearch",
+            "version": "v7.0.0",
+            "version_normalized": "7.0.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/jfxyl/elasticsearch.git",
+                "reference": "0d2863a7ee7ab3857769ace6de71d5308074ef9f"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/jfxyl/elasticsearch/zipball/0d2863a7ee7ab3857769ace6de71d5308074ef9f",
+                "reference": "0d2863a7ee7ab3857769ace6de71d5308074ef9f",
+                "shasum": "",
+                "mirrors": [
+                    {
+                        "url": "https://mirrors.aliyun.com/composer/dists/%package%/%reference%.%type%",
+                        "preferred": true
+                    }
+                ]
+            },
+            "require": {
+                "elasticsearch/elasticsearch": "~7.0",
+                "php": "^7.1"
+            },
+            "time": "2021-05-19T12:57:34+00:00",
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Jfxy\\Elasticsearch\\ElasticsearchServiceProvider"
+                    ],
+                    "aliases": {
+                        "Es": "Jfxy\\Elasticsearch\\ElasticsearchFacade"
+                    }
+                }
+            },
+            "installation-source": "dist",
+            "autoload": {
+                "psr-4": {
+                    "Jfxy\\Elasticsearch\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "yjj",
+                    "email": "651069242@qq.com"
+                }
+            ],
+            "support": {
+                "issues": "https://github.com/jfxyl/elasticsearch/issues",
+                "source": "https://github.com/jfxyl/elasticsearch/tree/v7.0.0"
+            },
+            "install-path": "../jfxy/elasticsearch"
+        },
+        {
             "name": "jxlwqq/quill",
             "version": "1.0.1",
             "version_normalized": "1.0.1.0",

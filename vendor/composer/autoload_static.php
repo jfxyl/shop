@@ -153,6 +153,7 @@ class ComposerStaticInit1a932c2ca7166165d532aee4012a5fce
         'J' => 
         array (
             'Jxlwqq\\Quill\\' => 13,
+            'Jfxy\\Elasticsearch\\' => 19,
         ),
         'I' => 
         array (
@@ -474,6 +475,10 @@ class ComposerStaticInit1a932c2ca7166165d532aee4012a5fce
         'Jxlwqq\\Quill\\' => 
         array (
             0 => __DIR__ . '/..' . '/jxlwqq/quill/src',
+        ),
+        'Jfxy\\Elasticsearch\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/jfxy/elasticsearch/src',
         ),
         'Illuminate\\Foundation\\Auth\\' => 
         array (
@@ -3747,6 +3752,10 @@ class ComposerStaticInit1a932c2ca7166165d532aee4012a5fce
         'Illuminate\\View\\ViewFinderInterface' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/View/ViewFinderInterface.php',
         'Illuminate\\View\\ViewName' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/View/ViewName.php',
         'Illuminate\\View\\ViewServiceProvider' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/View/ViewServiceProvider.php',
+        'Jfxy\\Elasticsearch\\Builder' => __DIR__ . '/..' . '/jfxy/elasticsearch/src/Builder.php',
+        'Jfxy\\Elasticsearch\\ElasticsearchFacade' => __DIR__ . '/..' . '/jfxy/elasticsearch/src/ElasticsearchFacade.php',
+        'Jfxy\\Elasticsearch\\ElasticsearchServiceProvider' => __DIR__ . '/..' . '/jfxy/elasticsearch/src/ElasticsearchServiceProvider.php',
+        'Jfxy\\Elasticsearch\\Grammar' => __DIR__ . '/..' . '/jfxy/elasticsearch/src/Grammar.php',
         'JsonException' => __DIR__ . '/..' . '/symfony/polyfill-php73/Resources/stubs/JsonException.php',
         'Jxlwqq\\Quill\\Editor' => __DIR__ . '/..' . '/jxlwqq/quill/src/Editor.php',
         'Jxlwqq\\Quill\\Quill' => __DIR__ . '/..' . '/jxlwqq/quill/src/Quill.php',

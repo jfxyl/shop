@@ -71,6 +71,7 @@ return array(
     'Laravel\\Tinker\\' => array($vendorDir . '/laravel/tinker/src'),
     'Laravel\\Horizon\\' => array($vendorDir . '/laravel/horizon/src'),
     'Jxlwqq\\Quill\\' => array($vendorDir . '/jxlwqq/quill/src'),
+    'Jfxy\\Elasticsearch\\' => array($vendorDir . '/jfxy/elasticsearch/src'),
     'Illuminate\\Foundation\\Auth\\' => array($vendorDir . '/laravel/ui/auth-backend'),
     'Illuminate\\' => array($vendorDir . '/laravel/framework/src/Illuminate'),
     'GuzzleHttp\\Stream\\' => array($vendorDir . '/ezimuel/guzzlestreams/src'),

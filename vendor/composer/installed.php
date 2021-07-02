@@ -6,7 +6,7 @@
     'aliases' => 
     array (
     ),
-    'reference' => 'ce0655a5a407b6078c87b48287d14776bdde0205',
+    'reference' => '8e67b2e878a2bfc5b65b25b9b96e7630dabfd30a',
     'name' => 'laravel/laravel',
   ),
   'versions' => 
@@ -480,6 +480,15 @@
         0 => 'v7.29.3',
       ),
     ),
+    'jfxy/elasticsearch' => 
+    array (
+      'pretty_version' => 'v7.0.0',
+      'version' => '7.0.0.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '0d2863a7ee7ab3857769ace6de71d5308074ef9f',
+    ),
     'jxlwqq/quill' => 
     array (
       'pretty_version' => '1.0.1',
@@ -530,7 +539,7 @@
       'aliases' => 
       array (
       ),
-      'reference' => 'ce0655a5a407b6078c87b48287d14776bdde0205',
+      'reference' => '8e67b2e878a2bfc5b65b25b9b96e7630dabfd30a',
     ),
     'laravel/tinker' => 
     array (
