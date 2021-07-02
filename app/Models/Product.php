@@ -81,7 +81,7 @@ class Product extends Model
             'price',
         ]);
 
-        $arr['category'] = $this->category ? explode(' - ',$this->category->full_name) : '';
+        $arr['category'] = $this->category ? explode(' - ',$this->category->full_name) : [];
         $arr['category_path'] = $this->category ? $this->category->path : '';
         $arr['description'] = strip_tags($this->description);
         $arr['skus'] = $this->skus->map(function(ProductSku $sku){

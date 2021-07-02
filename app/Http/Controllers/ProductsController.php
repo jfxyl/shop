@@ -4,24 +4,25 @@ namespace App\Http\Controllers;
 
 use App\Exceptions\InvalidRequestException;
 use App\Extensions\ProductEs;
+use App\Jobs\TestJob;
 use App\Models\Category;
 use App\Models\OrderItem;
 use App\Models\Product;
 use App\Models\ProductSku;
+use App\Models\User;
 use Illuminate\Http\Request;
 use App\Services\CategoryService;
 use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Arr;
 
 class ProductsController extends Controller
 {
     public function index(Request $request)
     {
-        $page = $request->input('page',1);
+        $page = max(intval($request->input('page',1)),1);
         $perPage = 16;
 
-        $es = (new ProductEs())->from(($page - 1) * $perPage)
-                ->size($perPage)
-                ->filter('on_sale',true);
+        $es = ProductEs::init()->filter('on_sale',true);
 
         if($order = $request->input('order','')){
             if(preg_match('/^(.+)_(asc|desc)$/',$order,$m)){
@@ -84,7 +85,7 @@ class ProductsController extends Controller
                 });
             });
         }
-        $result = $es->get();
+        $result = $es->paginator($page,$perPage);
 
         $productIds = collect($result['list'])->pluck('id')->all();
         $products = Product::query()
