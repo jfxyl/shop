@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="fc48d31f-1519-4537-8b27-efec4b57c71b" name="默认变更列表" comment="">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vendor/jfxy/elasticsearch" beforeDir="false" afterPath="$PROJECT_DIR$/vendor/jfxy/elasticsearch" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vendor/jfxy/elasticsearch/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/vendor/jfxy/elasticsearch/README.md" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
