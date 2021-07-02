@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "c016544318ef779e0314a1e0ea444d3f",
+    "content-hash": "d47982631b23ba8d07fa5a4f86c7fd53",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -1399,58 +1399,6 @@
                 "url"
             ],
             "time": "2020-09-30T07:37:11+00:00"
-        },
-        {
-            "name": "jfxy/elasticsearch",
-            "version": "v7.0.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/jfxyl/elasticsearch.git",
-                "reference": "3c0ac874238ed40ff363541718f7575410c70ddb"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/jfxyl/elasticsearch/zipball/3c0ac874238ed40ff363541718f7575410c70ddb",
-                "reference": "3c0ac874238ed40ff363541718f7575410c70ddb",
-                "shasum": "",
-                "mirrors": [
-                    {
-                        "url": "https://mirrors.aliyun.com/composer/dists/%package%/%reference%.%type%",
-                        "preferred": true
-                    }
-                ]
-            },
-            "require": {
-                "elasticsearch/elasticsearch": "~7.0",
-                "php": "^7.1"
-            },
-            "type": "library",
-            "extra": {
-                "laravel": {
-                    "providers": [
-                        "Jfxy\\Elasticsearch\\ElasticsearchServiceProvider"
-                    ],
-                    "aliases": {
-                        "Es": "Jfxy\\Elasticsearch\\ElasticsearchFacade"
-                    }
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Jfxy\\Elasticsearch\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "yjj",
-                    "email": "651069242@qq.com"
-                }
-            ],
-            "time": "2021-03-31T16:07:47+00:00"
         },
         {
             "name": "jxlwqq/quill",
@@ -8196,5 +8144,6 @@
     "platform": {
         "php": "^7.2.5|^8.0"
     },
-    "platform-dev": []
+    "platform-dev": [],
+    "plugin-api-version": "2.0.0"
 }

@@ -1,12 +1,12 @@
 <?php return array (
   'root' => 
   array (
-    'pretty_version' => 'dev-master',
-    'version' => 'dev-master',
+    'pretty_version' => 'dev-main',
+    'version' => 'dev-main',
     'aliases' => 
     array (
     ),
-    'reference' => '22051eb37291f06877492ed910b34fd710e39a9b',
+    'reference' => 'ce0655a5a407b6078c87b48287d14776bdde0205',
     'name' => 'laravel/laravel',
   ),
   'versions' => 
@@ -480,15 +480,6 @@
         0 => 'v7.29.3',
       ),
     ),
-    'jfxy/elasticsearch' => 
-    array (
-      'pretty_version' => 'dev-main',
-      'version' => 'dev-main',
-      'aliases' => 
-      array (
-      ),
-      'reference' => '75c2552cb62bfe076407d7097265d715a0be0497',
-    ),
     'jxlwqq/quill' => 
     array (
       'pretty_version' => '1.0.1',
@@ -534,12 +525,12 @@
     ),
     'laravel/laravel' => 
     array (
-      'pretty_version' => 'dev-master',
-      'version' => 'dev-master',
+      'pretty_version' => 'dev-main',
+      'version' => 'dev-main',
       'aliases' => 
       array (
       ),
-      'reference' => '22051eb37291f06877492ed910b34fd710e39a9b',
+      'reference' => 'ce0655a5a407b6078c87b48287d14776bdde0205',
     ),
     'laravel/tinker' => 
     array (
