@@ -6,7 +6,7 @@
     'aliases' => 
     array (
     ),
-    'reference' => '8e67b2e878a2bfc5b65b25b9b96e7630dabfd30a',
+    'reference' => '1c93946b2b0639eaf29777709ccb21479b8b5e9c',
     'name' => 'laravel/laravel',
   ),
   'versions' => 
@@ -60,6 +60,24 @@
       array (
         0 => '*',
       ),
+    ),
+    'deployer/deployer' => 
+    array (
+      'pretty_version' => 'v6.8.0',
+      'version' => '6.8.0.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '4e243a64ed61e779fbb31c5a74e258a8e52fdaff',
+    ),
+    'deployer/phar-update' => 
+    array (
+      'pretty_version' => 'v2.2.0',
+      'version' => '2.2.0.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '9ad07422f2cd43a1382ee8e134bdcd3a374848e3',
     ),
     'dnoegel/php-xdg-base-dir' => 
     array (
@@ -539,7 +557,7 @@
       'aliases' => 
       array (
       ),
-      'reference' => '8e67b2e878a2bfc5b65b25b9b96e7630dabfd30a',
+      'reference' => '1c93946b2b0639eaf29777709ccb21479b8b5e9c',
     ),
     'laravel/tinker' => 
     array (
@@ -814,6 +832,15 @@
       array (
       ),
       'reference' => 'f5c8a5dd5e7e8d68d7562bfb48d47287d33937d6',
+    ),
+    'pimple/pimple' => 
+    array (
+      'pretty_version' => 'v3.3.1',
+      'version' => '3.3.1.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '21e45061c3429b1e06233475cc0e1f6fc774d5b0',
     ),
     'psr/container' => 
     array (
@@ -1357,6 +1384,15 @@
       array (
       ),
       'reference' => '4e13f3fcefb1fcaaa5efb5403581406f4e840b9a',
+    ),
+    'symfony/yaml' => 
+    array (
+      'pretty_version' => 'v5.3.3',
+      'version' => '5.3.3.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '485c83a2fb5893e2ff21bf4bfc7fdf48b4967229',
     ),
     'theseer/tokenizer' => 
     array (

@@ -39,5 +39,7 @@ return array(
     '6124b4c8570aa390c21fafd04a26c69f' => $vendorDir . '/myclabs/deep-copy/src/DeepCopy/deep_copy.php',
     'b6b991a57620e2fb6b2f66f03fe9ddc2' => $vendorDir . '/symfony/string/Resources/functions.php',
     '4a1f389d6ce373bda9e57857d3b61c84' => $vendorDir . '/barryvdh/laravel-debugbar/src/helpers.php',
+    'eee1afd8f38c52a8d46f7c5bbb92afdd' => $vendorDir . '/deployer/deployer/src/Support/helpers.php',
+    '135133ad0ca20ef21cc262b30da9a000' => $vendorDir . '/deployer/deployer/src/functions.php',
     'c23e8f96f2281c042292a30d2b903c29' => $baseDir . '/bootstrap/helpers.php',
 );
