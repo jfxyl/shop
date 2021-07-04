@@ -2,11 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="fc48d31f-1519-4537-8b27-efec4b57c71b" name="默认变更列表" comment="">
-      <change beforePath="$PROJECT_DIR$/.env.pro" beforeDir="false" afterPath="$PROJECT_DIR$/.env.pro" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/seeds/DatabaseSeeder.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/seeds/DatabaseSeeder.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/deploy.php" beforeDir="false" afterPath="$PROJECT_DIR$/deploy.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vendor/deployer/deployer/recipe/laravel.php" beforeDir="false" afterPath="$PROJECT_DIR$/vendor/deployer/deployer/recipe/laravel.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/factories/UserAddressFactory.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/factories/UserAddressFactory.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
